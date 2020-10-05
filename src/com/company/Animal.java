@@ -1,6 +1,6 @@
 package com.company;
 
-public class Animal {
+public abstract class Animal {
 
     public int health;
     public String name;
@@ -11,4 +11,23 @@ public class Animal {
         this.gender = gender;
         this.health = health;
     }
+
+    public static void createHorse(){
+        Horse.createNewHorse();
+    }
+    public static void createPig(){
+        Pig.createNewPig();
+    }
+    public static void createSheep(){
+        Sheep.createNewSheep();
+    }
+    public static Animal createChicken(Chicken chicken){
+        Chicken.createNewChicken();
+        return chicken;
+    }
+    public static void createCow(){
+        Cow.createNewCow();
+    }
+
+
 }

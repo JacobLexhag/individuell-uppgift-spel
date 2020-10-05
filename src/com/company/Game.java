@@ -2,23 +2,32 @@ package com.company;
 import java.util.*;
 public class Game {
 
-
+    ArrayList<Animal> player1Animals = new ArrayList<>();
     Scanner input = new Scanner(System.in);
     ArrayList<Player> allPlayers = new ArrayList<Player>();
     int checkRound;
     int chooseHowManyPlayers;
+    int rounds = 0;
 
 
     public Game() {
+
         System.out.println("Welcome to a farm simulator game");
+
         checkRounds();
         createPlayers();
         playGame();
+
+        player1Animals.add(Animal.createChicken());
+
     }
 
     public void playGame() {
+        while(!(rounds == checkRound)){
+            choiceMenu();
 
-        choiceMenu();
+        }
+
 
     }
 
