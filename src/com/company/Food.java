@@ -10,7 +10,5 @@ public abstract class Food {
         this.gainHealth = gainHealth;
     }
 
-    public static void carrotGainHealth(){
 
-    }
 }
