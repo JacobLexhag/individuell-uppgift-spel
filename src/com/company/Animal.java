@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public abstract class Animal {
 
-    static ArrayList<Animal> player1Animals = new ArrayList<>();
+
 
     public int price;
     public String gender;

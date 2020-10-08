@@ -4,16 +4,16 @@ import java.util.Scanner;
 
 public class Pig extends Animal{
 
-    public Pig(String name, String gender, int health, int price){
+    static public int initialPrice = 50;
 
+    public Pig(String name, String gender, int health, int price){
         super(name, gender, health, price);
     }
 
-    public static void createNewPig(){
+    public static Pig createNewPig(){
         Scanner myScanner = new Scanner(System.in);
-        System.out.println(" Choose your Pigs name, then input the gender male or female");
-        System.out.println(" Your Pig has a 100 health.");
-        Pig pig = new Pig(myScanner.next(), myScanner.next(), 100, 50);
-        player1Animals.add(pig);
+        System.out.println("Choose your Pigs name \nthen input the gender male or female");
+        System.out.println("Your Pig has a 100 health.");
+        return  new Pig(myScanner.next(), myScanner.next(), 100, initialPrice);
     }
 }

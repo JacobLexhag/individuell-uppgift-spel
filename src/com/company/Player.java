@@ -7,6 +7,7 @@ public class Player {
 
     public String playerName;
     public int money;
+    public ArrayList<Animal> animals = new ArrayList<>();
 
 
 

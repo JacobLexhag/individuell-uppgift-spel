@@ -17,24 +17,23 @@ public class Game {
 
         checkRounds();
         createPlayer();
-
         playGame();
-
-
 
     }
 
     public void playGame() {
+
+
+
+
         while(rounds <= checkRound){
-            if (chooseHowManyPlayers == 1){
-                Store.player1Menu();
+           for (Player player : allPlayers){
+                Store.playerMenu(player);
             }
 
 
         rounds++;
         }
-
-
 
     }
 
@@ -49,8 +48,6 @@ public class Game {
             allPlayers.add(player);
 
         }
-
-
     }
 
 
@@ -65,6 +62,9 @@ public class Game {
 
         }
 
+    }
+    public static void clear(){
+        System.out.println("\n".repeat(50));
     }
 
 
