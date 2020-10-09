@@ -23,11 +23,10 @@ public class Game {
 
     public void playGame() {
 
-
-
-
         while(rounds <= checkRound){
+
            for (Player player : allPlayers){
+                Store.endRound = false;
                 Store.playerMenu(player);
             }
 
@@ -66,6 +65,7 @@ public class Game {
     public static void clear(){
         System.out.println("\n".repeat(50));
     }
+
 
 
 
