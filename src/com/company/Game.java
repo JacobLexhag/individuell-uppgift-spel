@@ -26,14 +26,13 @@ public class Game {
         while(rounds <= checkRound){
 
            for (Player player : allPlayers){
-                Store.endRound = false;
+                clear();
+                System.out.println("Round " + rounds + " !\n");
                 Store.playerMenu(player);
             }
-
-
         rounds++;
         }
-
+        System.out.println("Farming simulator has ended");
     }
 
     public void createPlayer() {
