@@ -29,8 +29,11 @@ public class Game {
                 clear();
                 System.out.println("Round " + rounds + " !\n");
                 Store.playerMenu(player);
+               for (Animal animal : player.animals){
+                   animal.decreaseHealth();
+               }
             }
-        rounds++;
+            rounds++;
         }
         System.out.println("Farming simulator has ended");
     }

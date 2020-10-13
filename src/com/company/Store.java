@@ -3,6 +3,7 @@ import java.sql.SQLOutput;
 import java.util.*;
 public class Store {
     Scanner input = new Scanner(System.in);
+
     public Store() {
 
     }
@@ -16,29 +17,35 @@ public class Store {
         System.out.println("Write (buy) to buy an animal");
         System.out.println("Write (sell) to sell an animal");
         System.out.println("Write (food) to buy some food for your animals");
+        System.out.println("Write (feed) to feed your animals");
         System.out.println("Write (mate) to try to make your animals mate");
         System.out.println("Write (end) to end the round for: " + player.playerName);
-                String chooseAction = input.nextLine();
-                switch (chooseAction) {
+        String chooseAction = input.nextLine();
+        switch (chooseAction) {
 
-                    case "buy" -> {
-                        buyAnimal(player);
-                    }
-                    case"sell"-> {
-                        sellAnimal(player);
-                    }
-                    case "food"-> {
-                        foodMenu(player);
-                    }
-                    case "mate"-> {
-                        System.out.println("hedeade");
-                    }
-                    case "end"->{return;}
+            case "buy" -> {
+                buyAnimal(player);
+            }
+            case "sell" -> {
+                sellAnimal(player);
+            }
+            case "food" -> {
+                buyFoodMenu(player);
+            }
+            case "feed" -> {
+                feedMenu(player);
+            }
+            case "mate" -> {
+                System.out.println("hedeade");
+            }
+            case "end" -> {
+                return;
+            }
 
-                    default -> playerMenu(player);
-                }
-
+            default -> playerMenu(player);
         }
+
+    }
 
     public static void buyAnimal(Player player) {
         Scanner input = new Scanner(System.in);
@@ -118,12 +125,15 @@ public class Store {
                     }
                 }
 
-                case "end" -> { Game.clear(); return; }
+                case "end" -> {
+                    Game.clear();
+                    return;
+                }
             }
         }
     }
 
-    public static void sellAnimal(Player player){
+    public static void sellAnimal(Player player) {
         Scanner input = new Scanner(System.in);
         boolean runSellMethod = true;
         Game.clear();
@@ -132,7 +142,7 @@ public class Store {
             System.out.println("Write (end) to end the round for: " + player.playerName);
             String sellMethod = input.next();
             switch (sellMethod) {
-                case "sell"-> {
+                case "sell" -> {
                     System.out.println(player.playerName + " this is a list of your animal\nWrite the number of the animal you would like to sell" +
                             " then press enter :\n-----------------------------------------------------------------------");
                     int i = 0;
@@ -140,41 +150,38 @@ public class Store {
                     for (var animal : player.animals) {
                         System.out.println(i + ": is your " + animal.breed + " named '" + animal.name + "' and has " +
                                 animal.health + " health");
+
+                        animal.increasePrice(player);
                         i++;
                     }
 
                     try {
                         player.animals.remove(Integer.parseInt(input.next()));
-                        if (input.equals(Horse.class.getClass().getSimpleName())){
-                            System.out.println("You now have: " + player.money + " money left!\n");
-                        }
 
+                                System.out.println("You now have: " + player.money + " money left!\n");
 
-
-
-
-                    }
-                    catch (Exception ignored){
+                    } catch (Exception ignored) {
                         System.out.println("You have to write a number!\n");
                     }
                 }
-                case "end" -> { return; }
+                case "end" -> {
+                    return;
+                }
 
             }
         }
     }
 
-    public static void foodMenu(Player player){
+    public static void buyFoodMenu(Player player) {
         Scanner input = new Scanner(System.in);
         var foodMenuLoop = true;
         while (foodMenuLoop) {
-            for (var animal : player.animals){
-                System.out.println(animal.breed+ " named "+ animal.name+ " has a: "+ animal.health+" health left!");
+            for (var animal : player.animals) {
+                System.out.println(animal.breed + " named " + animal.name + " has a: " + animal.health + " health left!");
             }
             System.out.println("-------------------------------------------------");
             System.out.println("Write (buy) to buy food for your animals");
-            System.out.println("Write (feed) to feed your animals");
-            System.out.println("Write (end) to en the round for: "+ player.playerName);
+            System.out.println("Write (end) to en the round for: " + player.playerName);
             switch (input.next()) {
 
                 case "buy" -> {
@@ -187,7 +194,7 @@ public class Store {
                     switch (input.next()) {
                         case "carrot" -> {
                             int creatingCarrot = 0;
-                            System.out.println("How many KG of Carrots do you want (input a number only)");
+                            System.out.println("How many KG of Carrot's do you want (input a number only)");
                             try {
                                 int userChoiceOfKG = Integer.parseInt(input.next());
                                 while (creatingCarrot < userChoiceOfKG) {
@@ -203,18 +210,39 @@ public class Store {
                         }
 
                         case "hay" -> {
-
+                            int creatingHay = 0;
+                            System.out.println("How many KG of Hay do you want (input a number only)");
+                            try {
+                                int userChoiceOfKG = Integer.parseInt(input.next());
+                                while (creatingHay < userChoiceOfKG) {
+                                    player.foods.add(Hay.buyHay());
+                                    player.money -= Hay.initialFoodPrice;
+                                    creatingHay++;
+                                }
+                            } catch (Exception ignored) {
+                                System.out.println("Wrong input! (input a number only)\n");
+                            }
+                            System.out.println(player.money + "money left\n-------------------------------------------");
                         }
                         case "grass" -> {
-
+                            int creatingGrass = 0;
+                            System.out.println("How many KG of Grass do you want (input a number only)");
+                            try {
+                                int userChoiceOfKG = Integer.parseInt(input.next());
+                                while (creatingGrass < userChoiceOfKG) {
+                                    player.foods.add(Grass.buyGrass());
+                                    player.money -= Grass.initialFoodPrice;
+                                    creatingGrass++;
+                                }
+                            } catch (Exception ignored) {
+                                System.out.println("Wrong input! (input a number only)\n");
+                            }
+                            System.out.println(player.money + "money left\n-------------------------------------------");
                         }
                     }
                 }
-                case "feed" -> {
-                    for (var food : player.foods){
-                        System.out.println("1 KG of: "+ food.name+ " and it adds "+ food.gainHealth+ " health to your animal!");
-                    }
-                }
+
+
                 case "end" -> {
                     return;
                 }
@@ -223,7 +251,39 @@ public class Store {
         }
 
     }
+        public static void feedMenu (Player player){
+            Scanner input = new Scanner(System.in);
+            var feedMenuTrue = true;
+            while (feedMenuTrue) {
+                System.out.println("Write (feed) to feed one of your animals");
+                System.out.println("Write (end) to end the round for " + player.playerName);
+                switch (input.next()) {
+                    case "feed" -> {
+                        int i = 0;
+
+                        for (var animal : player.animals) {
+                            System.out.println(i + ": is your " + animal.breed + " named '" + animal.name + "' and has " +
+                                    animal.health + " health");
+                            System.out.println("-----------------------------------------------------");
+
+                            for (var food : player.foods) {
+                                System.out.println("1 KG of: " + food.name + " and it adds " + food.gainHealth + " health to your animal!");
+                                animal.increaseHealth(player.foods.get(Integer.parseInt(input.next())));
+                                food.feedAnimal(player.animals.get(Integer.parseInt(input.next())));
+                            }
+                            System.out.println(animal.health);
+                        }
+
+
+
+                    }
+                    case "end" -> {
+                        return;
+                    }
+                }
+            }
+        }
+
+
 }
-
-
 

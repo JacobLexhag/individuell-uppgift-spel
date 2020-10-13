@@ -1,5 +1,5 @@
 package com.company;
-
+import java.util.*;
 public abstract class Food {
 
     int foodPricePerKG;
@@ -12,5 +12,9 @@ public abstract class Food {
         this.name = name;
     }
 
+    public Food feedAnimal(Animal animal){
+        Scanner input = new Scanner(System.in);
+        return
+    }
 
 }

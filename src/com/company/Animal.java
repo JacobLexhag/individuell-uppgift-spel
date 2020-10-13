@@ -22,7 +22,21 @@ public abstract class Animal {
         this.breed = breed;
     }
 
+    public int getPrice(){
+        return (int) Math.round (price * health / 100.0);
+    }
 
+    public int increasePrice(Player player){
+        return player.money += getPrice();
+    }
+
+    public int decreaseHealth(){
+        return health -= (10) + (int)(Math.random()* ( 30 - 10 + 1));
+    }
+
+    public int increaseHealth(Food food){
+        return health += food.gainHealth;
+    }
 
 
 }

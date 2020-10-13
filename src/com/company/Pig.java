@@ -16,4 +16,5 @@ public class Pig extends Animal{
         System.out.println("Your Pig has a 100 health.");
         return new Pig(myScanner.next(), myScanner.next(), 100, initialPrice, "Pig");
     }
+
 }
