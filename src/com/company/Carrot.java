@@ -1,14 +1,15 @@
 package com.company;
-
+import java.nio.channels.ScatteringByteChannel;
+import java.util.*;
 public class Carrot extends Food{
-        int gainHealth;
 
-    public Carrot(int gainHealth, int foodPrice){
-        super(gainHealth, foodPrice);
-        this.gainHealth = gainHealth;
+    static int initialFoodPrice = 20;
+    public Carrot(int gainHealth, int foodPricePerKG, String name){
+        super(gainHealth, foodPricePerKG, name);
+
     }
 
-    public static void carrotGainHealth(){
-
+    public static Food buyCarrot() {
+        return new Carrot(10,20,"Carrot");
     }
 }

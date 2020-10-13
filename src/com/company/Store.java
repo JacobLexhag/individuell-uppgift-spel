@@ -28,7 +28,7 @@ public class Store {
                         sellAnimal(player);
                     }
                     case "food"-> {
-                        System.out.println("hedå");
+                        foodMenu(player);
                     }
                     case "mate"-> {
                         System.out.println("hedeade");
@@ -142,14 +142,17 @@ public class Store {
                                 animal.health + " health");
                         i++;
                     }
+
                     try {
-                        for (var animal : player.animals){
-                            if (animal.breed.equals("Horse")){
-                                System.out.println("hej hej");
-                            }
-                        }
                         player.animals.remove(Integer.parseInt(input.next()));
-                        System.out.println("You now have: " + player.money + " money left!\n");
+                        if (input.equals(Horse.class.getClass().getSimpleName())){
+                            System.out.println("You now have: " + player.money + " money left!\n");
+                        }
+
+
+
+
+
                     }
                     catch (Exception ignored){
                         System.out.println("You have to write a number!\n");
@@ -159,6 +162,66 @@ public class Store {
 
             }
         }
+    }
+
+    public static void foodMenu(Player player){
+        Scanner input = new Scanner(System.in);
+        var foodMenuLoop = true;
+        while (foodMenuLoop) {
+            for (var animal : player.animals){
+                System.out.println(animal.breed+ " named "+ animal.name+ " has a: "+ animal.health+" health left!");
+            }
+            System.out.println("-------------------------------------------------");
+            System.out.println("Write (buy) to buy food for your animals");
+            System.out.println("Write (feed) to feed your animals");
+            System.out.println("Write (end) to en the round for: "+ player.playerName);
+            switch (input.next()) {
+
+                case "buy" -> {
+                    Game.clear();
+                    System.out.println("Choose which food youd like to buy\n-------------------------------------------");
+                    System.out.println("Write (carrot) to buy carrots");
+                    System.out.println("Write (hay) to buy hay");
+                    System.out.println("Write (grass) to buy grass");
+
+                    switch (input.next()) {
+                        case "carrot" -> {
+                            int creatingCarrot = 0;
+                            System.out.println("How many KG of Carrots do you want (input a number only)");
+                            try {
+                                int userChoiceOfKG = Integer.parseInt(input.next());
+                                while (creatingCarrot < userChoiceOfKG) {
+                                    player.foods.add(Carrot.buyCarrot());
+                                    player.money -= Carrot.initialFoodPrice;
+                                    System.out.println("Kolla hur många gånger den körs");
+                                    creatingCarrot++;
+                                }
+                            } catch (Exception ignored) {
+                                System.out.println("Wrong input! (input a number only)\n");
+                            }
+                            System.out.println(player.money + " money left\n-------------------------------------------");
+                        }
+
+                        case "hay" -> {
+
+                        }
+                        case "grass" -> {
+
+                        }
+                    }
+                }
+                case "feed" -> {
+                    for (var food : player.foods){
+                        System.out.println("1 KG of: "+ food.name+ " and it adds "+ food.gainHealth+ " health to your animal!");
+                    }
+                }
+                case "end" -> {
+                    return;
+                }
+            }
+
+        }
+
     }
 }
 

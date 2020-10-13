@@ -61,6 +61,9 @@ public class Game {
         }
 
     }
+    public void displayPlayer(Player player){
+
+    }
     public static void clear(){
         System.out.println("\n".repeat(50));
     }
