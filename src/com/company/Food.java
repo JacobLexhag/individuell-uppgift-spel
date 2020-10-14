@@ -6,15 +6,15 @@ public abstract class Food {
     int gainHealth;
     String name;
 
-    public Food(int gainHealth, int foodPricePerKG, String name){
+    public Food(int gainHealth, int foodPricePerKG, String name ){
         this.foodPricePerKG = foodPricePerKG;
         this.gainHealth = gainHealth;
         this.name = name;
     }
 
-    public Food feedAnimal(Animal animal){
+  //  public Food feedAnimal(Animal animal){
         Scanner input = new Scanner(System.in);
-        return
-    }
+
+    //}
 
 }

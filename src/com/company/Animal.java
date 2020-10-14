@@ -23,7 +23,7 @@ public abstract class Animal {
     }
 
     public int getPrice(){
-        return (int) Math.round (price * health / 100.0);
+        return price*(health/100);
     }
 
     public int increasePrice(Player player){
@@ -31,7 +31,11 @@ public abstract class Animal {
     }
 
     public int decreaseHealth(){
-        return health -= (10) + (int)(Math.random()* ( 30 - 10 + 1));
+        int decreaseHealthRandomNum;
+        decreaseHealthRandomNum = (10) + (int)(Math.random()* ( 30 - 10 + 1));
+        int percentageOfHealth = health*(decreaseHealthRandomNum/100);
+        return health -= percentageOfHealth;
+
     }
 
     public int increaseHealth(Food food){

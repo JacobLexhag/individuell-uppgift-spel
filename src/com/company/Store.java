@@ -157,8 +157,7 @@ public class Store {
 
                     try {
                         player.animals.remove(Integer.parseInt(input.next()));
-
-                                System.out.println("You now have: " + player.money + " money left!\n");
+                        System.out.println("You now have: " + player.money + " money left!\n");
 
                     } catch (Exception ignored) {
                         System.out.println("You have to write a number!\n");
@@ -186,61 +185,62 @@ public class Store {
 
                 case "buy" -> {
                     Game.clear();
-                    System.out.println("Choose which food youd like to buy\n-------------------------------------------");
+                    System.out.println("Choose which food you would like to buy\n-------------------------------------------");
                     System.out.println("Write (carrot) to buy carrots");
                     System.out.println("Write (hay) to buy hay");
                     System.out.println("Write (grass) to buy grass");
 
                     switch (input.next()) {
                         case "carrot" -> {
-                            int creatingCarrot = 0;
-                            System.out.println("How many KG of Carrot's do you want (input a number only)");
+                            int i = 0;
+                            int userChoiceOfKG = 0;
                             try {
-                                int userChoiceOfKG = Integer.parseInt(input.next());
-                                while (creatingCarrot < userChoiceOfKG) {
-                                    player.foods.add(Carrot.buyCarrot());
-                                    player.money -= Carrot.initialFoodPrice;
-                                    System.out.println("Kolla hur många gånger den körs");
-                                    creatingCarrot++;
-                                }
+                                System.out.println("How many KG of Carrot's do you want (input a number only)");
+                                userChoiceOfKG = Integer.parseInt(input.next());
                             } catch (Exception ignored) {
-                                System.out.println("Wrong input! (input a number only)\n");
+                                System.out.println("Input a number of 0!");
                             }
-                            System.out.println(player.money + " money left\n-------------------------------------------");
+                            while (0 < userChoiceOfKG) {
+                                player.foods.add(Carrot.buyCarrot());
+                                player.money -= Carrot.initialFoodPrice;
+                                System.out.println(player.money + " money left\n-------------------------------------------");
+                            }
                         }
-
                         case "hay" -> {
-                            int creatingHay = 0;
-                            System.out.println("How many KG of Hay do you want (input a number only)");
+                            int i = 0;
+                            int userChoiceOfKG = 0;
                             try {
-                                int userChoiceOfKG = Integer.parseInt(input.next());
-                                while (creatingHay < userChoiceOfKG) {
-                                    player.foods.add(Hay.buyHay());
-                                    player.money -= Hay.initialFoodPrice;
-                                    creatingHay++;
-                                }
+                                System.out.println("How many KG of Hay do you want (input a number only)");
+                                userChoiceOfKG = Integer.parseInt(input.next());
                             } catch (Exception ignored) {
-                                System.out.println("Wrong input! (input a number only)\n");
+                                System.out.println("Input a number of 0!");
                             }
-                            System.out.println(player.money + "money left\n-------------------------------------------");
+                            while (0 < userChoiceOfKG) {
+                                player.foods.add(Hay.buyHay());
+                                player.money -= Hay.initialFoodPrice;
+                                System.out.println(player.money + " money left\n-------------------------------------------");
+                            }
                         }
                         case "grass" -> {
-                            int creatingGrass = 0;
-                            System.out.println("How many KG of Grass do you want (input a number only)");
+                            int i = 0;
+                            int userChoiceOfKG;
+
                             try {
-                                int userChoiceOfKG = Integer.parseInt(input.next());
-                                while (creatingGrass < userChoiceOfKG) {
+                                System.out.println("How many KG of Grass do you want (input a number only)");
+                                userChoiceOfKG = Integer.parseInt(input.next());
+                                while (0 < userChoiceOfKG) {
                                     player.foods.add(Grass.buyGrass());
                                     player.money -= Grass.initialFoodPrice;
-                                    creatingGrass++;
+                                    i++;
                                 }
-                            } catch (Exception ignored) {
-                                System.out.println("Wrong input! (input a number only)\n");
+                                catch(Exception ignored){
+                                    System.out.println("Input a number of 0!");
+                                }
                             }
-                            System.out.println(player.money + "money left\n-------------------------------------------");
+                                System.out.println(player.money + " money left\n-------------------------------------------");
+
                         }
-                    }
-                }
+
 
 
                 case "end" -> {
@@ -269,7 +269,7 @@ public class Store {
                             for (var food : player.foods) {
                                 System.out.println("1 KG of: " + food.name + " and it adds " + food.gainHealth + " health to your animal!");
                                 animal.increaseHealth(player.foods.get(Integer.parseInt(input.next())));
-                                food.feedAnimal(player.animals.get(Integer.parseInt(input.next())));
+                               // food.feedAnimal(player.animals.get(Integer.parseInt(input.next())));
                             }
                             System.out.println(animal.health);
                         }
