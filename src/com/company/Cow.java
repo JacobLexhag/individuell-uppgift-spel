@@ -13,8 +13,24 @@ public class Cow extends Animal {
         Scanner myScanner = new Scanner(System.in);
         availableFoodsToEatCow.add("Grass");
         availableFoodsToEatCow.add("Hay");
-        System.out.println("Choose your Cows name \nthen input the gender male or female");
+        System.out.println("Choose your Cows name\nthen input the gender male or female");
         System.out.println("Your Cow has a 100 health.");
-        return new Cow(myScanner.next(), myScanner.next(), 100, initialPrice, "Cow");
+        String setName = myScanner.next();
+        String checkGender = myScanner.next();
+        if (!checkGender.equals("male")){
+            if (!checkGender.equals("female")) {
+                Game.clear();
+                System.out.println("Wrong input! Gender has to be female or male\n");
+                createNewCow();
+            }
+        }
+        return new Cow(setName, checkGender, 100, initialPrice, "Cow");
+    }
+    public static Cow createBabyCow(){
+        Game.clear();
+        Scanner myScanner = new Scanner(System.in);
+        String setGender = Animal.list[r.nextInt(list.length)];
+        System.out.println("Choose your cows name: ");
+        return new Cow(myScanner.next(),setGender,100, initialPrice, "Cow");
     }
 }

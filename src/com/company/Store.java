@@ -36,7 +36,7 @@ public class Store {
                 feedMenu(player);
             }
             case "mate" -> {
-                System.out.println("hedeade");
+                Animal.mateAnimals(player);
             }
             case "end" -> {
                 return;

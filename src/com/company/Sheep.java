@@ -13,8 +13,25 @@ public class Sheep extends Animal {
         Scanner myScanner = new Scanner(System.in);
         availableFoodsToEatSheep.add("Grass");
         availableFoodsToEatSheep.add("Hay");
-        System.out.println("Choose your Sheep's name \nthen input the gender male or female");
+        System.out.println("Choose your Sheep's name\nthen input the gender male or female");
         System.out.println("Your Sheep has a 100 health.");
-        return new Sheep(myScanner.next(), myScanner.next(), 100, initialPrice, "Sheep");
+        String setName = myScanner.next();
+        String checkGender = myScanner.next();
+        if (!checkGender.equals("male")){
+            if (!checkGender.equals("female")) {
+                Game.clear();
+                System.out.println("Wrong input! Gender has to be female or male\n");
+                createNewSheep();
+            }
+        }
+
+        return new Sheep(setName, checkGender, 100, initialPrice, "Sheep");
+    }
+    public static Sheep createBabySheep(){
+        Game.clear();
+        Scanner myScanner = new Scanner(System.in);
+        String setGender = Animal.list[r.nextInt(list.length)];
+        System.out.println("Choose your sheep name: ");
+        return new Sheep(myScanner.next(),setGender,100, initialPrice, "Sheep");
     }
 }
