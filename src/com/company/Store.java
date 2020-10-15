@@ -146,15 +146,12 @@ public class Store {
                     System.out.println(player.playerName + " this is a list of your animal\nWrite the number of the animal you would like to sell" +
                             " then press enter :\n-----------------------------------------------------------------------");
                     int i = 0;
-
                     for (var animal : player.animals) {
                         System.out.println(i + ": is your " + animal.breed + " named '" + animal.name + "' and has " +
                                 animal.health + " health");
-
                         animal.increasePrice(player);
                         i++;
                     }
-
                     try {
                         player.animals.remove(Integer.parseInt(input.next()));
                         System.out.println("You now have: " + player.money + " money left!\n");
@@ -166,15 +163,13 @@ public class Store {
                 case "end" -> {
                     return;
                 }
-
             }
         }
     }
 
     public static void buyFoodMenu(Player player) {
         Scanner input = new Scanner(System.in);
-        var foodMenuLoop = true;
-        while (foodMenuLoop) {
+        while (player.money > 20) {
             for (var animal : player.animals) {
                 System.out.println(animal.breed + " named " + animal.name + " has a: " + animal.health + " health left!");
             }
@@ -200,11 +195,12 @@ public class Store {
                             } catch (Exception ignored) {
                                 System.out.println("Input a number of 0!");
                             }
-                            while (0 < userChoiceOfKG) {
+                            while (i < userChoiceOfKG) {
                                 player.foods.add(Carrot.buyCarrot());
                                 player.money -= Carrot.initialFoodPrice;
-                                System.out.println(player.money + " money left\n-------------------------------------------");
+                                i++;
                             }
+                            System.out.println(player.money + " money left\n-------------------------------------------");
                         }
                         case "hay" -> {
                             int i = 0;
@@ -215,67 +211,91 @@ public class Store {
                             } catch (Exception ignored) {
                                 System.out.println("Input a number of 0!");
                             }
-                            while (0 < userChoiceOfKG) {
+                            while (i < userChoiceOfKG) {
                                 player.foods.add(Hay.buyHay());
                                 player.money -= Hay.initialFoodPrice;
-                                System.out.println(player.money + " money left\n-------------------------------------------");
+                                i++;
                             }
+                            System.out.println(player.money + " money left\n-------------------------------------------");
                         }
                         case "grass" -> {
                             int i = 0;
-                            int userChoiceOfKG;
-
+                            int userChoiceOfKG = 0;
                             try {
                                 System.out.println("How many KG of Grass do you want (input a number only)");
                                 userChoiceOfKG = Integer.parseInt(input.next());
-                                while (0 < userChoiceOfKG) {
-                                    player.foods.add(Grass.buyGrass());
-                                    player.money -= Grass.initialFoodPrice;
-                                    i++;
-                                }
-                                catch(Exception ignored){
-                                    System.out.println("Input a number of 0!");
-                                }
+                            } catch (Exception ignored) {
+                                System.out.println("Input a number of 0!");
                             }
-                                System.out.println(player.money + " money left\n-------------------------------------------");
-
+                            while (i < userChoiceOfKG) {
+                                player.foods.add(Grass.buyGrass());
+                                player.money -= Grass.initialFoodPrice;
+                                i++;
+                            }
+                            System.out.println(player.money + " money left\n-------------------------------------------");
                         }
-
-
-
-                case "end" -> {
-                    return;
+                    }
+                }
+                    case "end" -> {
+                        return;
+                    }
                 }
             }
-
-        }
-
     }
         public static void feedMenu (Player player){
             Scanner input = new Scanner(System.in);
-            var feedMenuTrue = true;
-            while (feedMenuTrue) {
+            var feedAnimal = true;
+            Animal selectedAnimal = null;
+            Food selectedFood = null;
+            while (feedAnimal) {
                 System.out.println("Write (feed) to feed one of your animals");
                 System.out.println("Write (end) to end the round for " + player.playerName);
                 switch (input.next()) {
                     case "feed" -> {
                         int i = 0;
-
+                        int j = 0;
                         for (var animal : player.animals) {
-                            System.out.println(i + ": is your " + animal.breed + " named '" + animal.name + "' and has " +
+                            System.out.println("Pigs only eat: Carrots and Hay");
+                            System.out.println("Horses only eat Carrot and Hay");
+                            System.out.println("Sheep only eat Hay and Grass");
+                            System.out.println("Chickens only eat Hay");
+                            System.out.println("Cows only eat Grass and Hay");
+                            System.out.println("-----------------------------------------------------");
+                            System.out.println(i + " : is your " + animal.breed + " named '" + animal.name + "' and has " +
                                     animal.health + " health");
                             System.out.println("-----------------------------------------------------");
-
-                            for (var food : player.foods) {
-                                System.out.println("1 KG of: " + food.name + " and it adds " + food.gainHealth + " health to your animal!");
-                                animal.increaseHealth(player.foods.get(Integer.parseInt(input.next())));
-                               // food.feedAnimal(player.animals.get(Integer.parseInt(input.next())));
+                            i++;
                             }
-                            System.out.println(animal.health);
-                        }
-
-
-
+                            selectedAnimal = player.animals.get(Integer.parseInt(input.next()));
+                            for (var food : player.foods) {
+                                System.out.println(j + ": is 1 KG of: " + food.name + " and it adds "
+                                        + food.gainHealth + " health to your animal!");
+                                System.out.println("-----------------------------------------------------");
+                                j++;
+                            }
+                                selectedFood = player.foods.get(Integer.parseInt(input.next()));
+                                if (Horse.availableFoodsToEatHorse.contains(selectedFood.name)) {
+                                    selectedAnimal.increaseHealth(selectedFood);
+                                    player.foods.remove(selectedFood);
+                                } else if (Pig.availableFoodsToEatPig.contains(selectedFood.name)) {
+                                    selectedAnimal.increaseHealth(selectedFood);
+                                    player.foods.remove(selectedFood);
+                                } else if (Sheep.availableFoodsToEatSheep.contains(selectedFood.name)) {
+                                    selectedAnimal.increaseHealth(selectedFood);
+                                    player.foods.remove(selectedFood);
+                                } else if (Chicken.availableFoodsToEatChicken.contains(selectedFood.name)) {
+                                    selectedAnimal.increaseHealth(selectedFood);
+                                    player.foods.remove(selectedFood);
+                                } else if (Cow.availableFoodsToEatCow.contains(selectedFood.name)) {
+                                    selectedAnimal.increaseHealth(selectedFood);
+                                    player.foods.remove(selectedFood);
+                                } else {
+                                    Game.clear();
+                                    System.out.println(selectedAnimal.breed + " does not eat " + selectedFood.name +
+                                            "!\n-----------------------------------------------------");
+                                    feedMenu(player);
+                                }
+                            System.out.println(selectedAnimal.name +" now has "+ selectedAnimal.health);
                     }
                     case "end" -> {
                         return;

@@ -3,6 +3,7 @@ import java.util.*;
 public abstract class Food {
 
     int foodPricePerKG;
+    int kilo;
     int gainHealth;
     String name;
 
@@ -12,9 +13,7 @@ public abstract class Food {
         this.name = name;
     }
 
-  //  public Food feedAnimal(Animal animal){
-        Scanner input = new Scanner(System.in);
 
-    //}
+
 
 }

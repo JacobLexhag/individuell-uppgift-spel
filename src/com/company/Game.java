@@ -32,9 +32,10 @@ public class Game {
                 clear();
                 System.out.println("Round " + rounds + " !\n");
                for (Animal animal : player.animals){
-                   System.out.println(animal.decreaseHealth());
+                   animal.decreaseHealth();
+                   System.out.println(animal.health);
                }
-               Store.playerMenu(player);
+                Store.playerMenu(player);
             }
             rounds++;
         }
@@ -79,10 +80,10 @@ public class Game {
     }
     public void displayPlayer(){
         int playerNumber = 1;
-        System.out.println("let's play in 20 seconds!\n----------------------------------------------------------------");
+        System.out.println("Round will start in 15 seconds!\n----------------------------------------------------------------");
         for (var player : allPlayers){
-            System.out.println("Player "+ playerNumber+ ": "+player.playerName+ " has: "+player.money+" money left\n"+
-                    player.playerName+" animals are:\n----------------------------------------------------------------");
+            System.out.println("Player "+ playerNumber+ ": "+player.playerName+ " has: "+player.money+" money left\n" +
+                    player.playerName+ " animals and foods owned is: \n----------------------------------------------------------------");
             for (var animal : player.animals){
                 System.out.println(animal.name+" is a: "+ animal.breed+" with the gender: "+animal.gender+" and has a: "+
                         animal.health+" health left");
@@ -101,7 +102,7 @@ public class Game {
     }
     public static void sleep(){
         try {
-            Thread.sleep(17000);
+            Thread.sleep(1000);
         }
         catch(InterruptedException e){System.out.println(e);}
 
