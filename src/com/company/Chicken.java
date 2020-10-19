@@ -26,10 +26,9 @@ public class Chicken extends Animal {
         return new Chicken(setName, checkGender, 100, initialPrice, "Chicken");
     }
     public static Chicken createBabyChicken(){
-        Game.clear();
         Scanner myScanner = new Scanner(System.in);
         String setGender = Animal.list[r.nextInt(list.length)];
-        System.out.println("Choose your pigs name: ");
+        System.out.println("Choose the name of your "+ setGender + " chicken baby:");
         return new Chicken(myScanner.next(),setGender,100, initialPrice, "Chicken");
     }
 }

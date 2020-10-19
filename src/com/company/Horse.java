@@ -27,10 +27,9 @@ public class Horse extends Animal{
         return new Horse(setName, checkGender, 100, initialPrice, "Horse");
     }
     public static Horse createBabyHorse(){
-        Game.clear();
         Scanner myScanner = new Scanner(System.in);
         String setGender = Animal.list[r.nextInt(list.length)];
-        System.out.println("Choose your horses name: ");
+        System.out.println("Choose the name of your "+ setGender + " horse baby:");
         return new Horse(myScanner.next(),setGender,100, initialPrice, "Horse");
     }
 }

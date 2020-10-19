@@ -11,7 +11,6 @@ public class Store {
 
     public static void playerMenu(Player player) {
         Scanner input = new Scanner(System.in);
-
         System.out.println("Now it's your turn " + player.playerName + ":\n---------------------------------------");
         System.out.println("Choose what action you want to do :\n---------------------------------------");
         System.out.println("Write (buy) to buy an animal");
@@ -36,7 +35,7 @@ public class Store {
                 feedMenu(player);
             }
             case "mate" -> {
-                Animal.mateAnimals(player);
+                Player.mateAnimals(player);
             }
             case "end" -> {
                 return;
@@ -250,21 +249,23 @@ public class Store {
             while (feedAnimal) {
                 System.out.println("Write (feed) to feed one of your animals");
                 System.out.println("Write (end) to end the round for " + player.playerName);
-                switch (input.next()) {
+                String chooseFeedOrEnd = input.next();
+                switch (chooseFeedOrEnd) {
                     case "feed" -> {
                         int i = 0;
                         int j = 0;
-                        for (var animal : player.animals) {
-                            System.out.println("Pigs only eat: Carrots and Hay");
-                            System.out.println("Horses only eat Carrot and Hay");
-                            System.out.println("Sheep only eat Hay and Grass");
-                            System.out.println("Chickens only eat Hay");
-                            System.out.println("Cows only eat Grass and Hay");
-                            System.out.println("-----------------------------------------------------");
-                            System.out.println(i + " : is your " + animal.breed + " named '" + animal.name + "' and has " +
-                                    animal.health + " health");
-                            System.out.println("-----------------------------------------------------");
-                            i++;
+                        System.out.println("Pigs only eat: Carrots and Hay");
+                        System.out.println("Horses only eat Carrot and Hay");
+                        System.out.println("Sheep only eat Hay and Grass");
+                        System.out.println("Chickens only eat Hay");
+                        System.out.println("Cows only eat Grass and Hay");
+                        System.out.println("-----------------------------------------------------");
+                        try {
+                            for (var animal : player.animals) {
+                                System.out.println(i + " : is your " + animal.breed + " named '" + animal.name + "' and has " +
+                                        animal.health + " health");
+                                System.out.println("-----------------------------------------------------");
+                                i++;
                             }
                             selectedAnimal = player.animals.get(Integer.parseInt(input.next()));
                             for (var food : player.foods) {
@@ -273,7 +274,12 @@ public class Store {
                                 System.out.println("-----------------------------------------------------");
                                 j++;
                             }
-                                selectedFood = player.foods.get(Integer.parseInt(input.next()));
+                            selectedFood = player.foods.get(Integer.parseInt(input.next()));
+                        }catch (Exception ignored){
+                            Game.clear();
+                            System.out.println("The animal or food chosen did not exist try again!\n");
+                            feedMenu(player);
+                        }
                                 if (Horse.availableFoodsToEatHorse.contains(selectedFood.name)) {
                                     selectedAnimal.increaseHealth(selectedFood);
                                     player.foods.remove(selectedFood);
@@ -295,7 +301,8 @@ public class Store {
                                             "!\n-----------------------------------------------------");
                                     feedMenu(player);
                                 }
-                            System.out.println(selectedAnimal.name +" now has "+ selectedAnimal.health);
+                                Game.clear();
+                            System.out.println(selectedAnimal.name +" now has "+ selectedAnimal.health+"\n");
                     }
                     case "end" -> {
                         return;

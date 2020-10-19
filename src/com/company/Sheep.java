@@ -28,10 +28,9 @@ public class Sheep extends Animal {
         return new Sheep(setName, checkGender, 100, initialPrice, "Sheep");
     }
     public static Sheep createBabySheep(){
-        Game.clear();
         Scanner myScanner = new Scanner(System.in);
         String setGender = Animal.list[r.nextInt(list.length)];
-        System.out.println("Choose your sheep name: ");
+        System.out.println("Choose the name of your "+ setGender + " sheep baby:");
         return new Sheep(myScanner.next(),setGender,100, initialPrice, "Sheep");
     }
 }

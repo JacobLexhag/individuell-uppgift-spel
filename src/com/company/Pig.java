@@ -31,7 +31,6 @@ public class Pig extends Animal{
         return new Pig(setName, checkGender, 100, initialPrice, "Pig");
     }
     public static Pig createBabyPig(){
-        Game.clear();
         Scanner myScanner = new Scanner(System.in);
         String setGender = Animal.list[r.nextInt(list.length)];
         System.out.println("Choose the name of your "+ setGender + " pig baby:");
