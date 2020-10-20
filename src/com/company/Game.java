@@ -25,18 +25,15 @@ public class Game {
 
             for (Player player : allPlayers) {
                 clear();
+                Animal.animalDie(player);
                 displayPlayer();
-                sleep(1000);
                 clear();
                 System.out.println("Round " + rounds + " !\n");
-                for (Animal animal : player.animals) {
-                    animal.decreaseHealth();
-                    animal.animalDie(player);
-                    System.out.println(animal.health);
-                }
                 player.playerLost(player);
                 Store.playerMenu(player);
-
+                for (Animal animal : player.animals) {
+                    animal.decreaseHealth();
+                }
             }
 
             rounds++;
@@ -79,22 +76,22 @@ public class Game {
 
     public void displayPlayer() {
         int playerNumber = 1;
-        System.out.println("Round will start in 15 seconds!\n----------------------------------------------------------------");
+        System.out.println("Press ENTER to start next round!\n------------------------------------------------------------------------");
         for (var player : allPlayers) {
             System.out.println("Player " + playerNumber + ": " + player.playerName + " has: " + player.money + " money left\n" +
-                    player.playerName + " animals and foods owned is: \n----------------------------------------------------------------");
+                    player.playerName + " animals and foods owned is: \n------------------------------------------------------------------------");
             for (var animal : player.animals) {
                 System.out.println(animal.name + " is a: " + animal.breed + " with the gender: " + animal.gender + " and has a: " +
                         animal.health + " health left");
-                System.out.println("----------------------------------------------------------------");
+                System.out.println("------------------------------------------------------------------------");
             }
             for (var food : player.foods) {
                 System.out.println("1 KG of: " + food.name);
-                System.out.println("----------------------------------------------------------------");
+                System.out.println("------------------------------------------------------------------------");
             }
             playerNumber++;
         }
-
+        input.nextLine();
     }
 
     public static void clear() {

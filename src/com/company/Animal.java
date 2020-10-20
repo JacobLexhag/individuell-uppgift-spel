@@ -39,10 +39,11 @@ public abstract class Animal {
         health = Math.min(100, health + 10);
     }
 
-    public void animalDie(Player player){
-        for (var animal : player.animals) {
-            if (animal.health == 0) {
+    public static void animalDie(Player player){
+        for (int j = player.animals.size() - 1; j >= 0; j--) {
+            if (animal.health <= 0) {
                 player.animals.remove(animal);
+                System.out.println(player.playerName+ " your "+animal.breed + " named: "+animal.name+ " has died! ");
             }
         }
     }

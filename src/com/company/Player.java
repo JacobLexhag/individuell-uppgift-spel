@@ -163,16 +163,14 @@ public class Player {
         int counter = 1;
         System.out.println("Game has ended here is the scoreboard:\n---------------------------------------------------------------------");
         for (var players : Game.allPlayers){
-            if (players.animals.size() > 0) {
                 for (var animals : players.animals) {
                     animals.increasePrice(players);
                 }
-                players.animals.clear();
-            }
-                Game.allPlayers.sort((Player a, Player b) -> a.money > b.money ? -1 : 1);
+
                 System.out.println(counter + " : " + players.playerName + " with: " + players.money + " money left!");
                 counter++;
         }
+        Game.allPlayers.sort((Player a, Player b) -> a.money > b.money ? -1 : 1);
         System.out.println("---------------------------------------------------------------------");
         System.out.println("The winner is: "+ Game.allPlayers.get(0).playerName+"!");
     }
