@@ -23,6 +23,11 @@ public class Player {
         Animal firstBreedAnimal = null;
         Animal secondBreedAnimal = null;
                 int i = 0;
+                if(player.animals.size() == 0){
+                    System.out.println("You don't own any animals");
+                    Game.sleep(4000);
+                    return;
+                }
                 for (var animal : player.animals){
                     System.out.println(i + " : is your " +animal.gender+ " "+ animal.breed + " named '" + animal.name + "' and has " +
                             animal.health + " health");
@@ -146,7 +151,7 @@ public class Player {
     }
     public void playerLost(Player player){
         int x = 0;
-        if (money <= 850){
+        if (money == 0){
           if (player.animals.size() == 0){
               System.out.println(player.playerName +" you have lost the game! and will now be removed from the game");
               System.out.println("Press ENTER to continue the game for remaining players");

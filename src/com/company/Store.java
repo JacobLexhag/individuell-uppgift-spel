@@ -148,16 +148,18 @@ public class Store {
                     for (var animal : player.animals) {
                         System.out.println(i + ": is your " + animal.breed + " named '" + animal.name + "' and has " +
                                 animal.health + " health");
-                        animal.increasePrice(player);
                         i++;
-                    }
-                    try {
-                        player.animals.remove(Integer.parseInt(input.next()));
-                        System.out.println("You now have: " + player.money + " money left!\n");
+                        try {
+                            player.animals.remove(Integer.parseInt(input.next()));
+                            animal.increasePrice(player);
+                            System.out.println("You now have: " + player.money + " money left!\n");
 
-                    } catch (Exception ignored) {
+                        } catch (Exception ignored) {
                         System.out.println("You have to write a number!\n");
                     }
+                    }
+
+
                 }
                 case "end" -> {
                     return;
