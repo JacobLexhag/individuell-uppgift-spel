@@ -9,7 +9,7 @@ public class Game {
     int chooseHowManyPlayers;
 
     int rounds = 1;
-
+    int realRounds;
 
     public Game() {
         tipsAndTricks();
@@ -21,21 +21,22 @@ public class Game {
 
     public void playGame() {
 
-        while (rounds <= checkRound) {
-
+        while (rounds <= realRounds) {
+            if(allPlayers.size() == 0){
+                break;
+            }
             for (Player player : allPlayers) {
                 clear();
                 Animal.animalDie(player);
                 displayPlayer();
                 clear();
                 System.out.println("Round " + rounds + " !\n");
-                player.playerLost(player);
                 Store.playerMenu(player);
+                player.playerLost(player);
                 for (Animal animal : player.animals) {
                     animal.decreaseHealth();
                 }
             }
-
             rounds++;
         }
         clear();
@@ -43,21 +44,27 @@ public class Game {
     }
 
     public void createPlayer() {
-
-        System.out.println("How many player want to play (1-4) : ");
+        int playerAmount = 0;
+        System.out.println("How many players want to play (1-4) : ");
         try {
-            chooseHowManyPlayers = Integer.parseInt(input.next());
+            playerAmount = Integer.parseInt(input.next());
         } catch (Exception ignored) {
-            System.out.println("Input a number between 1-4!");
+            System.out.println("");
+        }
+        if (playerAmount >= 1 && playerAmount <= 4){
+            chooseHowManyPlayers = playerAmount;
+        }else{
+            clear();
+            System.out.println("Wrong input 1-4 players\n");
             createPlayer();
         }
+
         for (int i = 1; i <= chooseHowManyPlayers; i++) {
             System.out.println("Player " + i + " choose your name : ");
-
             Player player = new Player(1000, input.next());
             allPlayers.add(player);
-
         }
+        System.out.println(chooseHowManyPlayers);
     }
 
 
@@ -66,17 +73,22 @@ public class Game {
         try {
             checkRound = Integer.parseInt(input.next());
             if (checkRound >= 5 && checkRound <= 30) {
-                System.out.println("");
+               realRounds = checkRound;
+            }else{
+                System.out.println("Wrong input try again, input number 5-30!");
+                checkRounds();
             }
         } catch (Exception ignored) {
             System.out.println("Wrong input try again, input a number between 5-30!\n");
             checkRounds();
         }
+        System.out.println(checkRound);
+        System.out.println(realRounds);
     }
 
     public void displayPlayer() {
         int playerNumber = 1;
-        System.out.println("Press ENTER to start next round!\n------------------------------------------------------------------------");
+        System.out.println("Press ENTER to continue!\n------------------------------------------------------------------------");
         for (var player : allPlayers) {
             System.out.println("Player " + playerNumber + ": " + player.playerName + " has: " + player.money + " money left\n" +
                     player.playerName + " animals and foods owned is: \n------------------------------------------------------------------------");

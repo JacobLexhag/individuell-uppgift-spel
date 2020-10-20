@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Player {
 
-
+    Scanner input = new Scanner(System.in);
     public String playerName;
     public int money;
     public ArrayList<Animal> animals = new ArrayList<>();
@@ -145,13 +145,18 @@ public class Player {
 
     }
     public void playerLost(Player player){
-        if (money <= 0){
-          int checkPlayersAnimals = player.animals.size();
-          if (checkPlayersAnimals <= 0){
-              System.out.println(playerName +" you have lost the game! and will now be removed from the game");
-              Game.allPlayers.remove(player);
-          }else if (checkPlayersAnimals >= 0){
-              System.out.println(playerName +" you have to sell some of your animals to get some money back!\n");
+        int x = 0;
+        if (money <= 850){
+          if (player.animals.size() == 0){
+              System.out.println(player.playerName +" you have lost the game! and will now be removed from the game");
+              System.out.println("Press ENTER to continue the game for remaining players");
+              input.nextLine();
+              for (int i = Game.allPlayers.size() + 1; i >= x; i--){
+                  Game.allPlayers.remove(player);
+              }
+          }else {
+              System.out.println(player.playerName +" you have to sell some of your animals to get some money back!\n");
+              Game.sleep(4000);
               Store.sellAnimal(player);
           }
         }else{
@@ -161,6 +166,10 @@ public class Player {
 
     public static void playerWin(){
         int counter = 1;
+        if (Game.allPlayers.size() == 0){
+            System.out.println("All players lost!");
+            return;
+        }
         System.out.println("Game has ended here is the scoreboard:\n---------------------------------------------------------------------");
         for (var players : Game.allPlayers){
                 for (var animals : players.animals) {

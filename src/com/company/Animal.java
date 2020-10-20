@@ -41,9 +41,10 @@ public abstract class Animal {
 
     public static void animalDie(Player player){
         for (int j = player.animals.size() - 1; j >= 0; j--) {
-            if (animal.health <= 0) {
-                player.animals.remove(animal);
-                System.out.println(player.playerName+ " your "+animal.breed + " named: "+animal.name+ " has died! ");
+            if (player.animals.get(j).health <= 0) {
+                System.out.println(player.playerName+ " your "+player.animals.get(j).breed + " named: "+
+                        player.animals.get(j).name+ " has died!\n------------------------------------------------------------------------");
+                player.animals.remove(player.animals.get(j));
             }
         }
     }
