@@ -64,7 +64,7 @@ public class Game {
             Player player = new Player(1000, input.next());
             allPlayers.add(player);
         }
-        System.out.println(chooseHowManyPlayers);
+
     }
 
 
@@ -82,8 +82,6 @@ public class Game {
             System.out.println("Wrong input try again, input a number between 5-30!\n");
             checkRounds();
         }
-        System.out.println(checkRound);
-        System.out.println(realRounds);
     }
 
     public void displayPlayer() {

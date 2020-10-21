@@ -2,7 +2,7 @@ package com.company;
 import java.util.*;
 public class Horse extends Animal{
 
-    public static int initialPrice = 150;
+    public static int initialPrice = 100;
     public static ArrayList<String> availableFoodsToEatHorse = new ArrayList<>();
 
     public Horse(String name, String gender, int health, int price, String breed){

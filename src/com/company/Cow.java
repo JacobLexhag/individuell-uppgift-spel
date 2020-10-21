@@ -12,7 +12,6 @@ public class Cow extends Animal {
     public static Cow createNewCow(){
         Scanner myScanner = new Scanner(System.in);
         availableFoodsToEatCow.add("Grass");
-        availableFoodsToEatCow.add("Hay");
         System.out.println("Choose your Cows name\nthen input the gender male or female");
         System.out.println("Your Cow has a 100 health.");
         String setName = myScanner.next();

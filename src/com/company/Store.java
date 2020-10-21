@@ -11,8 +11,8 @@ public class Store {
 
     public static void playerMenu(Player player) {
         Scanner input = new Scanner(System.in);
-        System.out.println("Now it's your turn " + player.playerName + ":\n---------------------------------------");
-        System.out.println("Choose what action you want to do :\n---------------------------------------");
+        System.out.println("Now it's your turn " + player.playerName + " with: "+player.money+ " money left :\n----------------------------------------------------");
+        System.out.println("Choose what action you want to do :\n----------------------------------------------------");
         System.out.println("Write (buy) to buy an animal");
         System.out.println("Write (sell) to sell an animal");
         System.out.println("Write (food) to buy some food for your animals");
@@ -23,43 +23,49 @@ public class Store {
         switch (chooseAction) {
 
             case "buy" -> {
+                Game.clear();
                 buyAnimal(player);
             }
             case "sell" -> {
+                Game.clear();
                 sellAnimal(player);
             }
             case "food" -> {
+                Game.clear();
                 buyFoodMenu(player);
             }
             case "feed" -> {
+                Game.clear();
                 feedMenu(player);
             }
             case "mate" -> {
+                Game.clear();
                 Player.mateAnimals(player);
             }
             case "end" -> {
                 return;
             }
-
-            default -> playerMenu(player);
+            default ->{
+                Game.clear();
+                playerMenu(player);
+            }
         }
 
     }
 
     public static void buyAnimal(Player player) {
         Scanner input = new Scanner(System.in);
-        Game.clear();
         if (player.money <= 40) {
             System.out.println("You don't have enough to buy an animal! \n---------------------------------------");
             playerMenu(player);
         }
         while (player.money >= 40) {
-            System.out.println(player.playerName);
-            System.out.println("Write (pig) to buy a pig");
-            System.out.println("Write (horse) to buy a horse");
-            System.out.println("Write (sheep) to buy a sheep");
-            System.out.println("Write (cow) to buy a cow");
-            System.out.println("Write (chicken) to buy a chicken");
+            System.out.println(player.playerName+ " is buying a animal\n------------------------------------------");
+            System.out.println("Write (pig) to buy a pig (cost 50)");
+            System.out.println("Write (horse) to buy a horse (cost 100)");
+            System.out.println("Write (sheep) to buy a sheep (cost 50)");
+            System.out.println("Write (cow) to buy a cow (cost 80)");
+            System.out.println("Write (chicken) to buy a chicken (cost 40)");
             System.out.println("Write (end) to end the round");
             switch (input.next()) {
                 case "pig" -> {
@@ -135,7 +141,6 @@ public class Store {
     public static void sellAnimal(Player player) {
         Scanner input = new Scanner(System.in);
         boolean runSellMethod = true;
-        Game.clear();
         while (runSellMethod) {
             System.out.println("Write (sell) to sell one of your animals");
             System.out.println("Write (end) to end the round for: " + player.playerName);
@@ -150,8 +155,16 @@ public class Store {
                                 animal.health + " health");
                         i++;
                         try {
+
+                            if (player.animals.size() == 0) {
+                                Game.clear();
+                                System.out.println("Can't sell animal because there are only one animal owned!\n");
+                                playerMenu(player);
+                            }
                             player.animals.remove(Integer.parseInt(input.next()));
                             animal.increasePrice(player);
+                            Game.clear();
+                            System.out.println("You have sold your "+animal.breed +" with the name: " + animal.name);
                             System.out.println("You now have: " + player.money + " money left!\n");
 
                         } catch (Exception ignored) {
@@ -170,6 +183,11 @@ public class Store {
 
     public static void buyFoodMenu(Player player) {
         Scanner input = new Scanner(System.in);
+        if (player.money < 20){
+            System.out.println("You dont have enough to buy food, choose another option!");
+            Game.clear();
+            playerMenu(player);
+        }
         while (player.money > 20) {
             for (var animal : player.animals) {
                 System.out.println(animal.breed + " named " + animal.name + " has a: " + animal.health + " health left!");
@@ -181,11 +199,11 @@ public class Store {
 
                 case "buy" -> {
                     Game.clear();
+                    System.out.println("Animals does not eat all foods!");
                     System.out.println("Choose which food you would like to buy\n-------------------------------------------");
-                    System.out.println("Write (carrot) to buy carrots");
-                    System.out.println("Write (hay) to buy hay");
-                    System.out.println("Write (grass) to buy grass");
-
+                    System.out.println("Write (carrot) to buy carrots (Pig, Horse)");
+                    System.out.println("Write (hay) to buy hay (Sheep, Horse, Chicken)");
+                    System.out.println("Write (grass) to buy grass (Sheep, Cow)");
                     switch (input.next()) {
                         case "carrot" -> {
                             int i = 0;
@@ -256,11 +274,11 @@ public class Store {
                     case "feed" -> {
                         int i = 0;
                         int j = 0;
-                        System.out.println("Pigs only eat: Carrots and Hay");
+                        System.out.println("Pigs only eat: Carrots");
                         System.out.println("Horses only eat Carrot and Hay");
                         System.out.println("Sheep only eat Hay and Grass");
                         System.out.println("Chickens only eat Hay");
-                        System.out.println("Cows only eat Grass and Hay");
+                        System.out.println("Cows only eat Grass");
                         System.out.println("-----------------------------------------------------");
                         try {
                             for (var animal : player.animals) {

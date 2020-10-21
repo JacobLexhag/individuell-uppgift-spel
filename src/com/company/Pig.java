@@ -16,7 +16,6 @@ public class Pig extends Animal{
     public static Pig createNewPig(){
         Scanner myScanner = new Scanner(System.in);
         availableFoodsToEatPig.add("Carrot");
-        availableFoodsToEatPig.add("Hay");
         System.out.println("Choose your Pigs name\nthen input the gender male or female");
         System.out.println("Your Pig has a 100 health.");
         String setName = myScanner.next();

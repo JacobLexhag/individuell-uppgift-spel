@@ -18,7 +18,6 @@ public class Player {
 
     }
     public static void mateAnimals(Player player){
-        Game.clear();
         Scanner input = new Scanner(System.in);
         Animal firstBreedAnimal = null;
         Animal secondBreedAnimal = null;
@@ -35,6 +34,7 @@ public class Player {
                     i++;
                 }
                 System.out.println("Choose your 2 animals that you would like to try mate!");
+                System.out.println("Remember that the animals must be of different gender and the same breed!");
                 try {
                     firstBreedAnimal = player.animals.get(Integer.parseInt(input.next()));
                     secondBreedAnimal = player.animals.get(Integer.parseInt(input.next()));
@@ -171,20 +171,22 @@ public class Player {
 
     public static void playerWin(){
         int counter = 1;
+        int x = 0;
         if (Game.allPlayers.size() == 0){
             System.out.println("All players lost!");
             return;
         }
         System.out.println("Game has ended here is the scoreboard:\n---------------------------------------------------------------------");
-        for (var players : Game.allPlayers){
-                for (var animals : players.animals) {
-                    animals.increasePrice(players);
-                }
-
-                System.out.println(counter + " : " + players.playerName + " with: " + players.money + " money left!");
-                counter++;
+       for (var player : Game.allPlayers){
+            for (var animal : player.animals) {
+                animal.increasePrice(player);
+            }
         }
         Game.allPlayers.sort((Player a, Player b) -> a.money > b.money ? -1 : 1);
+        for(var players : Game.allPlayers) {
+            System.out.println(counter + " : " + players.playerName + " with: " + players.money + " money left!");
+            counter++;
+        }
         System.out.println("---------------------------------------------------------------------");
         System.out.println("The winner is: "+ Game.allPlayers.get(0).playerName+"!");
     }
