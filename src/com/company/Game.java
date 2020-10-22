@@ -48,6 +48,7 @@ public class Game {
         System.out.println("How many players want to play (1-4) : ");
         try {
             playerAmount = Integer.parseInt(input.next());
+            clear();
         } catch (Exception ignored) {
             System.out.println("");
         }
@@ -57,12 +58,14 @@ public class Game {
             clear();
             System.out.println("Wrong input 1-4 players\n");
             createPlayer();
+            return;
         }
 
         for (int i = 1; i <= chooseHowManyPlayers; i++) {
             System.out.println("Player " + i + " choose your name : ");
             Player player = new Player(1000, input.next());
             allPlayers.add(player);
+            clear();
         }
 
     }
@@ -75,13 +78,16 @@ public class Game {
             if (checkRound >= 5 && checkRound <= 30) {
                realRounds = checkRound;
             }else{
+                clear();
                 System.out.println("Wrong input try again, input number 5-30!");
                 checkRounds();
             }
         } catch (Exception ignored) {
+            clear();
             System.out.println("Wrong input try again, input a number between 5-30!\n");
             checkRounds();
         }
+        clear();
     }
 
     public void displayPlayer() {

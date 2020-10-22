@@ -141,37 +141,43 @@ public class Store {
     public static void sellAnimal(Player player) {
         Scanner input = new Scanner(System.in);
         boolean runSellMethod = true;
+        Animal sellAnimal = null;
         while (runSellMethod) {
+            if (player.animals.size() == 0) {
+                System.out.println(player.animals.size() + " animals owned you can't sell press ENTER to continue");
+                input.nextLine();
+                return;
+            }
             System.out.println("Write (sell) to sell one of your animals");
             System.out.println("Write (end) to end the round for: " + player.playerName);
             String sellMethod = input.next();
             switch (sellMethod) {
                 case "sell" -> {
-                    System.out.println(player.playerName + " this is a list of your animal\nWrite the number of the animal you would like to sell" +
+                    Game.clear();
+                    System.out.println(player.playerName + " this is a list of your animals.\nWrite the number of the animal you would like to sell" +
                             " then press enter :\n-----------------------------------------------------------------------");
                     int i = 0;
                     for (var animal : player.animals) {
                         System.out.println(i + ": is your " + animal.breed + " named '" + animal.name + "' and has " +
                                 animal.health + " health");
                         i++;
+                    }
                         try {
-
-                            if (player.animals.size() == 0) {
-                                Game.clear();
-                                System.out.println("Can't sell animal because there are only one animal owned!\n");
-                                playerMenu(player);
-                            }
-                            player.animals.remove(Integer.parseInt(input.next()));
-                            animal.increasePrice(player);
+                            sellAnimal = player.animals.remove(Integer.parseInt(input.next()));
+                            System.out.println("BEFORE ski" + player.money);
+                            sellAnimal.increasePrice(player);
                             Game.clear();
-                            System.out.println("You have sold your "+animal.breed +" with the name: " + animal.name);
+                            System.out.println("You have sold your "+sellAnimal.breed +" with the name: " + sellAnimal.name);
                             System.out.println("You now have: " + player.money + " money left!\n");
 
                         } catch (Exception ignored) {
-                        System.out.println("You have to write a number!\n");
+                             System.out.println("You have to write a number!\n");
+                        }
+                    if (player.animals.size() == 0) {
+                        System.out.println("You sold your last animal! game will continue in a few seconds.");
+                        Game.sleep(5000);
+                        return;
                     }
-                    }
-
 
                 }
                 case "end" -> {

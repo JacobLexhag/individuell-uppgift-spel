@@ -43,6 +43,8 @@ public class Player {
                         if (firstBreedAnimal.breed.equals("Pig")) {
                             int ranBreedAnimals = 10 + (int) (Math.random() * 21);
                             try {
+                                //if(Math.random() < 0.5){ // this would be 50% chance, actually you are giving 75% chance
+                                // because randBreedAnimals will be between 10-30 and then there is 75% it is above 15
                                 if (ranBreedAnimals < 15) {
                                     int howManyChildren = 1 + (int) (Math.random() * 5);
                                     System.out.println(firstBreedAnimal.name+ " and "+ secondBreedAnimal.name+ " successfully mated and created: " +
@@ -151,21 +153,24 @@ public class Player {
     }
     public void playerLost(Player player){
         int x = 0;
-        if (money == 0){
-          if (player.animals.size() == 0){
-              System.out.println(player.playerName +" you have lost the game! and will now be removed from the game");
+        if (money <= 0){
+            if (Game.allPlayers.size() == 1 && player.animals.size() == 0){
+                System.out.println("Game over!");
+                System.exit(0);
+            }
+          if (player.animals.size() == 0 && Game.allPlayers.size() > 1) {
+              System.out.println(player.playerName + " you have lost the game! and will now be removed from the game");
               System.out.println("Press ENTER to continue the game for remaining players");
               input.nextLine();
-              for (int i = Game.allPlayers.size() + 1; i >= x; i--){
+              for (int i = Game.allPlayers.size() + 1; i >= x; i--) {
                   Game.allPlayers.remove(player);
               }
-          }else {
+          }
+          else {
               System.out.println(player.playerName +" you have to sell some of your animals to get some money back!\n");
               Game.sleep(4000);
               Store.sellAnimal(player);
           }
-        }else{
-            System.out.println("");
         }
     }
 

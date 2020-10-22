@@ -23,11 +23,11 @@ public abstract class Animal {
     }
 
     public int getPrice() {
-        return price * (health / 100);
+        return (int) Math.round(price * (health / 100.0));
     }
 
-    public int increasePrice(Player player) {
-        return player.money += getPrice();
+    public void increasePrice(Player player) {
+        player.money += getPrice();
     }
 
     public void decreaseHealth() {
